@@ -16,6 +16,7 @@ class File {
     protected $writeStr = '';  // 待写入文件的字符串
 
     public function __construct($conf=[]){
+        define('BR',"\r\n");  // 定义换行符
         is_array($conf) && $this->conf = array_merge($this->conf, $conf);
         // 判断是否单文件日志
         if ($this->conf['single']) {
@@ -42,15 +43,15 @@ class File {
 
         // 开始拼接写入字符串
         $this->writeStr .= "================================="
-                            ."=================================\n"
-                            .'[ '.date($this->conf['time_fomat'])." ]\n";
+                            ."=================================".BR
+                            .'[ '.date($this->conf['time_fomat'])." ]".BR;
         foreach ($log as $type => $items) {
             $str = '';
             foreach ($items as $key => $item) {
                 if(is_numeric($key)){
-                    $str .= "[ {$type} ] ". $item ."\n";
+                    $str .= "[ {$type} ] ". $item .BR;
                 }elseif(is_string($key)){
-                    $str .= "[ {$type} ] [ {$key} ] ". $item ."\n";
+                    $str .= "[ {$type} ] [ {$key} ] ". $item .BR;
                 }
             }
             $this->writeStr .= $str;
