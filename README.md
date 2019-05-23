@@ -1,37 +1,70 @@
 # phpLogg
 
-#### 介绍
+### 介绍
 php写日志的轮子喜加一
 
-#### 软件架构
-软件架构说明
+### 软件架构
+
+#### 目录结构
+log 根目录
+|----dirver 驱动目录
+|    |----File.php 文件日志
+|----Log.php
 
 
-#### 安装教程
 
-1. xxxx
-2. xxxx
-3. xxxx
+### 安装教程
 
-#### 使用说明
+```php
+require_once 'Log.php';
+```
 
-1. xxxx
-2. xxxx
-3. xxxx
+### 使用说明
 
-#### 参与贡献
+请看demo
+```php
 
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
+require_once 'Log.php';
 
+// 初试化
+Log::init([
+    // 'driver' => 'File',          // 目前只有文件日志的驱动，后期会支持sqlite，mysql等
+    'time_fomat' => 'Y-m-d H:i:s',  // 时间格式date()的第一个标准参数，默认c
+    // 'file_size'  => 204800,      // 单日志文件大小超过此大小会备份日志文件，默认200M
+    'path'       => './logdata/',   // 日志文件位置
+    // 'single'        => false,    // 是否单文件日志，默认是
+    // 'buffer'        => 2048,     // 写入缓冲区大小，默认0
+]);
 
-#### 码云特技
+Log::record('这是记录到内存中的log');
+Log::record('这是记录到内存中debug','debug');
+Log::record(['支持传数组记录','key'=>'当然也支持关联数组'],'notice');
+Log::record("调用save保存到文件");
+Log::save(); // record记录的内容必须调用save才会保存到文件中
+Log::write("这是直接写入日志",'error');
 
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+// 也支持下面的方法记录各种不同类型的日志
+Log::log('静态方法调用');
+Log::info(["静态方法也支持传数组",'yes'=>"同样也支持关联数组"]);
+
+```
+
+```
+==================================================================
+[ 2019-05-23 17:07:32 ]
+[ log ] 这是记录到内存中的log
+[ log ] 调用save保存到文件
+[ debug ] 这是记录到内存中debug
+[ notice ] 支持传数组记录
+[ notice ] [ key ] 当然也支持关联数组
+==================================================================
+[ 2019-05-23 17:07:32 ]
+[ error ] 这是直接写入日志
+==================================================================
+[ 2019-05-23 17:07:32 ]
+[ log ] 静态方法调用
+==================================================================
+[ 2019-05-23 17:07:32 ]
+[ info ] 静态方法也支持传数组
+[ info ] [ yes ] 同样也支持关联数组
+```

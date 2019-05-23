@@ -4,6 +4,7 @@ require_once 'Log.php';
 
 // 初试化
 Log::init([
+    // 'driver' => 'File',          // 目前只有文件日志的驱动，后期会支持sqlite，mysql等
     'time_fomat' => 'Y-m-d H:i:s',  // 时间格式date()的第一个标准参数，默认c
     // 'file_size'  => 204800,      // 单日志文件大小超过此大小会备份日志文件，默认200M
     'path'       => './logdata/',   // 日志文件位置
