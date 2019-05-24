@@ -1,15 +1,23 @@
 <?php
 
 require_once 'Log.php';
-
-// 初试化
+/* 
+# 文件日志
 Log::init([
-    // 'driver' => 'File',          // 目前只有文件日志的驱动，后期会支持sqlite，mysql等
-    'time_fomat' => 'Y-m-d H:i:s',  // 时间格式date()的第一个标准参数，默认c
-    // 'file_size'  => 204800,      // 单日志文件大小超过此大小会备份日志文件，默认200M
-    'path'       => './logdata/',   // 日志文件位置
-    // 'single'        => false,    // 是否单文件日志，默认是
-    // 'buffer'        => 2048,     // 写入缓冲区大小，默认0
+    'driver'    => 'File',              // File,Sqlite
+    'time_fomat'   => 'Y-m-d H: i: s',  // 时间格式date()的第一个标准参数，默认c
+    // 'file_size' => 204800,           // 单日志文件大小超过此大小会备份日志文件，默认200M
+    'path'         => 'D:\logdata/',    // 日志文件位置
+    'single'       => false,            // 是否单文件日志，默认是
+    // 'buffer'    => 2048,             // 写入缓冲区大小，默认0
+]);
+ */
+
+# sqlite日志
+Log::init([
+    'driver' => 'Sqlite',
+    'path'       => 'D:\logdata/',   // 日志文件位置
+    'single'        => true,    // 是否单文件日志，默认是true
 ]);
 
 Log::record('这是记录到内存中的log');

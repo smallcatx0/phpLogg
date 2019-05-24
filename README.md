@@ -1,15 +1,18 @@
 # phpLogg
 
 ### 介绍
-php写日志的轮子喜加一
+php写日志的轮子喜加一  
+~~目前仅支持文件日志，后期sqlite,mysql记录日志。~~  
+已经支持文件日志，sqlite日志！  
 
 ### 软件架构
 
 #### 目录结构
-log 根目录
-|----dirver 驱动目录
-|    |----File.php 文件日志
-|----Log.php
+log 根目录  
+|----dirver 驱动目录  
+|----|----File.php 文件日志驱动  
+|----|----Sqlite.php sqlite3日志驱动  
+|----Log.php 程序主入库
 
 
 
@@ -26,14 +29,23 @@ require_once 'Log.php';
 
 require_once 'Log.php';
 
-// 初试化
+/* 
+# 文件日志
 Log::init([
-    // 'driver' => 'File',          // 目前只有文件日志的驱动，后期会支持sqlite，mysql等
-    'time_fomat' => 'Y-m-d H:i:s',  // 时间格式date()的第一个标准参数，默认c
-    // 'file_size'  => 204800,      // 单日志文件大小超过此大小会备份日志文件，默认200M
-    'path'       => './logdata/',   // 日志文件位置
-    // 'single'        => false,    // 是否单文件日志，默认是
-    // 'buffer'        => 2048,     // 写入缓冲区大小，默认0
+    'driver'    => 'File',              // File,Sqlite
+    'time_fomat'   => 'Y-m-d H: i: s',  // 时间格式date()的第一个标准参数，默认c
+    // 'file_size' => 204800,           // 单日志文件大小超过此大小会备份日志文件，默认200M
+    'path'         => 'D:\logdata/',    // 日志文件位置
+    'single'       => false,            // 是否单文件日志，默认是
+    // 'buffer'    => 2048,             // 写入缓冲区大小，默认0
+]);
+ */
+
+# sqlite日志
+Log::init([
+    'driver' => 'Sqlite',
+    'path'       => 'D:\logdata/',   // 日志文件位置
+    'single'        => true,    // 是否单文件日志，默认是true
 ]);
 
 Log::record('这是记录到内存中的log');
@@ -68,3 +80,5 @@ Log::info(["静态方法也支持传数组",'yes'=>"同样也支持关联数组"
 [ info ] 静态方法也支持传数组
 [ info ] [ yes ] 同样也支持关联数组
 ```
+
+### @TODO
