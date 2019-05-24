@@ -42,8 +42,7 @@ class File {
         }
 
         // 开始拼接写入字符串
-        $this->writeStr .= "================================="
-                            ."=================================".BR
+        $this->writeStr .= "==================================================================".BR
                             .'[ '.date($this->conf['time_fomat'])." ]".BR;
         foreach ($log as $type => $items) {
             $str = '';
@@ -61,9 +60,9 @@ class File {
 
     /**
      * 将字符串追加文件中
-     * @param  [type] $fPath [description]
-     * @param  [type] $msg   [description]
-     * @return [type]        [description]
+     * @param  string $fPath 文件路径
+     * @param  string $msg   字符信息
+     * @return boolean
      */
     public function write($fPath='',$msg=''){
         $fPath = empty($fPath) ? $this->filePath : $fPath;
